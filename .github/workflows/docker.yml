@@ -1,0 +1,25 @@
+name: Docker Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # or `debian-latest` if you're using a specific Debian image
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      run: |
+        docker build -t my-image .
+
+    - name: Run Docker container
+      run: |
+        docker run --rm my-image
